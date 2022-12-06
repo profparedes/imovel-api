@@ -34,7 +34,7 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($property)
+    public function show(Property $property)
     {
         return response()->json($property);
     }
