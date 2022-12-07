@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
+use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PropertyController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return response()->json(Property::get());
+        return response()->json(City::get());
     }
 
     /**
@@ -27,7 +27,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         return response()->json(
-            Property::create($request->all()),
+            City::create($request->all()),
             Response::HTTP_CREATED
         );
     }
@@ -35,37 +35,37 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show(City $city)
     {
-        return response()->json($property);
+        return response()->json($city);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, City $city)
     {
-        $property->update($request->all());
+        $city->update($request->all());
 
-        return response()->json($property);
+        return response()->json($city);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(City $city)
     {
-        $property->delete();
+        $city->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
