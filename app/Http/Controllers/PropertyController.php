@@ -49,9 +49,11 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Property $property)
     {
-        //
+        $property->update($request->all());
+
+        return response()->json($property, Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -60,8 +62,10 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Property $property)
     {
-        //
+        $property->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
