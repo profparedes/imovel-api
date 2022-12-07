@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Property;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PropertyController extends Controller
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return response()->json(Property::get());
+        return response()->json(State::get());
     }
 
     /**
@@ -27,44 +27,44 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         return response()->json(
-            Property::create($request->all()),
+            State::create($request->all()),
             Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function show(Property $property)
+    public function show(State $state)
     {
-        return response()->json($property);
+        return response()->json($state);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, State $state)
     {
-        $property->update($request->all());
+        $state->update($request->all());
 
-        return response()->json($property);
+        return response()->json($state);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Property $property)
+    public function destroy(State $state)
     {
-        $property->delete();
+        $state->delete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
