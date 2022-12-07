@@ -29,28 +29,17 @@ class Property extends Model
         'has_pool'
     ];
 
-    // $table->id();
-    // $table->string('title', 128);
-    // $table->string('type', 64);
-    // $table->text('description')->nullable();
-    // $table->string('address', 128);
-    // $table->boolean('rent');
-    // $table->boolean('sale');
-    // $table->integer('rent_value')->unsigned();
-    // $table->integer('sale_value')->unsigned();
-    // $table->boolean('furnished');
-    // $table->boolean('pet_friendly');
-    // $table->smallInteger('bathrooms')->unsigned();
-    // $table->smallInteger('bedrooms')->unsigned();
-    // $table->smallInteger('parking')->unsigned();
-    // $table->smallInteger('total_area')->unsigned();
-    // $table->smallInteger('useful_area')->unsigned();
-    // $table->boolean('party_hall');
-    // $table->boolean('playground');
-    // $table->boolean('square');
-    // $table->boolean('gym');
-    // $table->boolean('pool');
-    // $table->timestamps();
-
-    //use HasFactory;
+    protected $casts = [
+        'is_rent' => 'boolean',
+        'is_sale' => 'boolean',
+        'rent_value' => 'float',
+        'sale_value' => 'float',
+        'has_gym' => 'boolean',
+        'has_pool' => 'boolean',
+        'has_playground' => 'boolean',
+        'has_square' => 'boolean',
+        'has_party_hall' => 'boolean',
+        'is_furnished' => 'boolean',
+        'is_pet_friendly' => 'boolean'
+    ];
 }
