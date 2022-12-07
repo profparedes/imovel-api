@@ -26,9 +26,9 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $property = Property::create($request->all());
-
-        return response()->json($property, Response::HTTP_CREATED);
+        return response()->json(
+            Property::create($request->all()),
+            Response::HTTP_CREATED);
     }
 
     /**

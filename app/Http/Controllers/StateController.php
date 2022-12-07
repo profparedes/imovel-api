@@ -26,9 +26,9 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
-        $state = State::create($request->all());
-
-        return response()->json($state, Response::HTTP_CREATED);
+        return response()->json(
+            State::create($request->all()),
+            Response::HTTP_CREATED);
     }
 
     /**
