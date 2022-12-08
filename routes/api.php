@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::apiResource('/properties', PropertyController::class);
 Route::apiResource('/states', StateController::class);
 Route::apiResource('/cities', CityController::class);
+Route::apiResource('/districts', PictureController::class);
 Route::apiResource('/pictures', PictureController::class);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
