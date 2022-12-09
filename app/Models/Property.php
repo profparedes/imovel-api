@@ -3,14 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Property extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = [
         'title',
         'type',
         'description',
         'address',
+        'district_id',
+        'city_id',
+        'state_id',
         'is_rent',
         'is_sale',
         'rent_value',
