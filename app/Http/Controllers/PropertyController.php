@@ -15,7 +15,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return response()->json(Property::with('district')->get());
+        return response()->json(Property::with(['district', 'pictures'])->get());
     }
 
     /**
@@ -27,7 +27,7 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         $property = Property::create($request->all());
-        $property->load('district');
+        $property->load(['district', 'pictures']);
 
         return response()->json(
             $property,
@@ -43,7 +43,7 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        $property->load('district');
+        $property->load(['district', 'pictures']);
 
         return response()->json($property);
     }
@@ -58,7 +58,7 @@ class PropertyController extends Controller
     public function update(Request $request, Property $property)
     {
         $property->update($request->all());
-        $property->load('district');
+        $property->load(['district', 'pictures']);
 
         return response()->json($property);
     }
