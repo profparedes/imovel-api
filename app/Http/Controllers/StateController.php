@@ -15,7 +15,7 @@ class StateController extends Controller
      */
     public function index()
     {
-        return response()->json(State::get());
+        return response()->json(State::with('cities')->get());
     }
 
     /**
@@ -26,8 +26,11 @@ class StateController extends Controller
      */
     public function store(Request $request)
     {
+        $state = State::create($request->all());
+        $state->load('cities');
+
         return response()->json(
-            State::create($request->all()),
+            $state,
             Response::HTTP_CREATED);
     }
 
@@ -39,6 +42,8 @@ class StateController extends Controller
      */
     public function show(State $state)
     {
+        $state->load('cities');
+
         return response()->json($state);
     }
 
@@ -52,6 +57,7 @@ class StateController extends Controller
     public function update(Request $request, State $state)
     {
         $state->update($request->all());
+        $state->load('cities');
 
         return response()->json($state);
     }

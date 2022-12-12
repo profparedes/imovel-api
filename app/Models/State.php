@@ -11,4 +11,9 @@ class State extends Model
         'UF'
     ];
 
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
+
 }

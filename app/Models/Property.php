@@ -53,4 +53,9 @@ class Property extends Model
     {
         return $this->belongsTo(District::class);
     }
+
+    public function pictures()
+    {
+        return $this->hasMany(Picture::class);
+    }
 }
