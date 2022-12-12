@@ -48,4 +48,9 @@ class Property extends Model
         'is_furnished' => 'boolean',
         'is_pet_friendly' => 'boolean'
     ];
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

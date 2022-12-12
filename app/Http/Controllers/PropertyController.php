@@ -15,7 +15,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return response()->json(Property::get());
+        return response()->json(Property::with('district')->get());
     }
 
     /**
@@ -26,8 +26,11 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
+        $property = Property::create($request->all());
+        $property->load('district');
+
         return response()->json(
-            Property::create($request->all()),
+            $property,
             Response::HTTP_CREATED
         );
     }
@@ -40,6 +43,8 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
+        $property->load('district');
+
         return response()->json($property);
     }
 
@@ -53,6 +58,7 @@ class PropertyController extends Controller
     public function update(Request $request, Property $property)
     {
         $property->update($request->all());
+        $property->load('district');
 
         return response()->json($property);
     }
@@ -66,6 +72,19 @@ class PropertyController extends Controller
     public function destroy(Property $property)
     {
         $property->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete (Property $property)
+    {
+        $property->forceDelete();
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }

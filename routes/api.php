@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::apiResource('/properties', PropertyController::class);
+Route::delete('/properties/{property}/force-delete', [PropertyController::class, 'forceDelete']);
+
 Route::apiResource('/states', StateController::class);
 Route::apiResource('/cities', CityController::class);
 Route::apiResource('/districts', DistrictController::class);

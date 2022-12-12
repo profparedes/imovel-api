@@ -10,4 +10,9 @@ class Picture extends Model
         'picture',
         'property_id'
     ];
+
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }
