@@ -26,7 +26,12 @@ class PropertyController extends Controller
      */
     public function store(Request $request)
     {
-        $property = Property::create($request->all());
+        $data = $request->all();
+
+        $property = Property::create($data);
+
+        $property->pictures()->sync($data['pictures']);
+
         $property->load(['district', 'pictures']);
 
         return response()->json(
@@ -57,7 +62,11 @@ class PropertyController extends Controller
      */
     public function update(Request $request, Property $property)
     {
-        $property->update($request->all());
+        $data = $request->all();
+
+        $property->update($data);
+        $property->pictures()->sync($data['pictures']);
+
         $property->load(['district', 'pictures']);
 
         return response()->json($property);
