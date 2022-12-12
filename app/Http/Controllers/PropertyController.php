@@ -75,4 +75,17 @@ class PropertyController extends Controller
 
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete (Property $property)
+    {
+        $property->forceDelete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }
