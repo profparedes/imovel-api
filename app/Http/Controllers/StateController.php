@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StateResource;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +16,9 @@ class StateController extends Controller
      */
     public function index()
     {
-        return response()->json(State::with('cities')->get());
+        $states = State::with('cities')->get();
+
+        return response()->json(StateResource::collection($states));
     }
 
     /**
