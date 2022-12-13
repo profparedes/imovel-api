@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\DistrictResource;
 use App\Models\District;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +16,9 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        return response()->json(District::with(['city', 'properties'])->get());
+        $districts = District::with(['city', 'properties'])->get();
+
+        return response()->json(DistrictResource::collection($districts));
     }
 
     /**

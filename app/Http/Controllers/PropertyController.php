@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PropertyResource;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +16,9 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        return response()->json(Property::with(['district', 'pictures'])->get());
+        $properties = Property::with(['district', 'pictures'])->get();
+
+        return response()->json(PropertyResource::collection($properties));
     }
 
     /**

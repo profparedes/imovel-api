@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CityResource;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +16,9 @@ class CityController extends Controller
      */
     public function index()
     {
-        return response()->json(City::with(['state', 'districts'])->get());
+        $cities = City::with(['state', 'districts'])->get();
+
+        return response()->json(CityResource::collection($cities));
     }
 
     /**
