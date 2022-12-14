@@ -21,6 +21,8 @@ class PropertyResource extends JsonResource
                     'description' => $this->description,
                     'location' => [
                         'address' => $this->address,
+                        'lat_address' => $this->lat_address,
+                        'lng_address' => $this->lng_address,
                         'district' => new DistrictResource($this->whenLoaded('district')),
                     ],
                     'is_rent' => $this->is_rent,
