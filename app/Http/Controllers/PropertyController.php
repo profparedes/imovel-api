@@ -16,7 +16,7 @@ class PropertyController extends Controller
      */
     public function index(Request $request)
     {
-        $properties = Property::with(['district.city', 'pictures'])->paginate($request->get('per_page', 1));
+        $properties = Property::with(['district.city.state', 'pictures'])->paginate($request->get('per_page', 1));
 
         return response()->json(PropertyResource::collection($properties));
     }
