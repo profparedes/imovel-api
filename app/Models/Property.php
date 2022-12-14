@@ -14,6 +14,8 @@ class Property extends Model
         'type',
         'description',
         'address',
+        'lat_address',
+        'lng_address',
         'district_id',
         'is_rent',
         'is_sale',
