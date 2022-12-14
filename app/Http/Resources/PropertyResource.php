@@ -19,10 +19,9 @@ class PropertyResource extends JsonResource
                     'title' => $this->title,
                     'type' => $this->type,
                     'description' => $this->description,
-                    'address' => $this->address,
                     'location' => [
-                        new DistrictResource($this->whenLoaded('district')),
-                        new CityResource($this->whenLoaded('city')),
+                        'address' => $this->address,
+                        'district' => new DistrictResource($this->whenLoaded('district')),
                     ],
                     'is_rent' => $this->is_rent,
                     'is_sale' => $this->is_sale,
@@ -45,7 +44,6 @@ class PropertyResource extends JsonResource
                 ];
 
         unset(
-            $data['district'],
             $data['district_id'],
             $data['deleted_at']
         );
