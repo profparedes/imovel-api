@@ -14,15 +14,19 @@ class PropertyResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = parent::toArray($request);
+        $data = array_merge(
+            parent::toArray($request),
+            [
+                'location' => new DistrictResource($this->whenLoaded('district')),
+                'pictures' => PictureResource::collection($this->whenLoaded('pictures')),
+            ]
+        );
 
         unset(
+            $data['district'],
             $data['district_id'],
             $data['deleted_at']
         );
-
-        $data['district'] = new DistrictResource($this->whenLoaded('district'));
-        $data['pictures'] = PictureResource::collection($this->whenLoaded('pictures'));
 
         return $data;
     }
