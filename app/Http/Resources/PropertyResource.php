@@ -14,13 +14,35 @@ class PropertyResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = array_merge(
-            parent::toArray($request),
-            [
-                'location' => new DistrictResource($this->whenLoaded('district')),
-                'pictures' => PictureResource::collection($this->whenLoaded('pictures')),
-            ]
-        );
+        $data = [
+                    'id' => $this->id,
+                    'title' => $this->title,
+                    'type' => $this->type,
+                    'description' => $this->description,
+                    'address' => $this->address,
+                    'location' => [
+                        new DistrictResource($this->whenLoaded('district')),
+                        new CityResource($this->whenLoaded('city')),
+                    ],
+                    'is_rent' => $this->is_rent,
+                    'is_sale' => $this->is_sale,
+                    'rent_value' => $this->rent_value,
+                    'sale_value' => $this->sale_value,
+                    'is_furnished' => $this->is_furnished,
+                    'is_pet_friendly' => $this->is_pet_friendly,
+                    'bathrooms' => $this->bathrooms,
+                    'bedrooms' => $this->bedrooms,
+                    'parking' => $this->parking,
+                    'total_area' => $this->total_area,
+                    'useful_area' => $this->useful_area,
+                    'has_party_hall' => $this->has_party_hall,
+                    'has_square' => $this->has_square,
+                    'has_gym' => $this->has_gym,
+                    'has_pool' => $this->has_pool,
+                    'photos' => PictureResource::collection($this->whenLoaded('pictures')),
+                    'created_at' => $this->created_at,
+                    'updated_at' => $this->updated_at,
+                ];
 
         unset(
             $data['district'],

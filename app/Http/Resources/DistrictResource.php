@@ -14,7 +14,12 @@ class DistrictResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = parent::toArray($request);
+        $data = array_merge(
+            parent::toArray($request),
+            [
+                'city' => new CityResource($this->whenLoaded('city')),
+            ]
+        );
 
         unset(
             $data['created_at'],
