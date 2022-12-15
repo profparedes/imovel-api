@@ -37,6 +37,7 @@ class PropertyResource extends JsonResource
                     'total_area' => $this->total_area,
                     'useful_area' => $this->useful_area,
                     'has_party_hall' => $this->has_party_hall,
+                    'has_playground' => $this->has_playground,
                     'has_square' => $this->has_square,
                     'has_gym' => $this->has_gym,
                     'has_pool' => $this->has_pool,

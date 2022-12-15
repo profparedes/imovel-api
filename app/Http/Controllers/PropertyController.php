@@ -32,7 +32,7 @@ class PropertyController extends Controller
         $data = $request->all();
 
         $property = Property::create($data);
-        $property->pictures()->sync($data['pictures']);
+        //$property->pictures()->sync($data['pictures']);
 
         $property->load(['district.city.state', 'pictures']);
 
