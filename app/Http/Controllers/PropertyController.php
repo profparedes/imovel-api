@@ -67,7 +67,7 @@ class PropertyController extends Controller
         $data = $request->all();
 
         $property->update($data);
-        $property->pictures()->sync($data['pictures']);
+        //$property->pictures()->sync($data['pictures']);
 
         $property->load(['district.city.state', 'pictures']);
 
