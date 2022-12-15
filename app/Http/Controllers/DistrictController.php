@@ -14,9 +14,9 @@ class DistrictController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $districts = District::with(['city', 'properties'])->get();
+        $districts = District::with(['city', 'properties.pictures'])->paginate($request->get('per_page', 1));
 
         return response()->json(DistrictResource::collection($districts));
     }
@@ -30,10 +30,10 @@ class DistrictController extends Controller
     public function store(Request $request)
     {
         $district = District::create($request->all());
-        $district->load(['city', 'properties']);
+        $district->load(['city', 'properties.pictures']);
 
         return response()->json(
-            $district,
+            new DistrictResource($district),
             Response::HTTP_CREATED
         );
     }
@@ -46,9 +46,9 @@ class DistrictController extends Controller
      */
     public function show(District $district)
     {
-        $district->load(['city', 'properties']);
+        $district->load(['city', 'properties.pictures']);
 
-        return response()->json($district);
+        return response()->json(new DistrictResource($district));
     }
 
     /**
@@ -61,9 +61,9 @@ class DistrictController extends Controller
     public function update(Request $request, District $district)
     {
         $district->update($request->all());
-        $district->load(['city', 'properties']);
+        $district->load(['city', 'properties.pictures']);
 
-        return response()->json($district);
+        return response()->json(new DistrictResource($district));
     }
 
     /**

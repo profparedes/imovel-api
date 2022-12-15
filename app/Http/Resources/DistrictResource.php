@@ -18,6 +18,7 @@ class DistrictResource extends JsonResource
             parent::toArray($request),
             [
                 'city' => new CityResource($this->whenLoaded('city')),
+                'properties' => PropertyResource::collection($this->whenLoaded('properties')),
             ]
         );
 

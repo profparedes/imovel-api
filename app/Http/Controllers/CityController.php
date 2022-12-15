@@ -14,9 +14,9 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cities = City::with(['state', 'districts'])->get();
+        $cities = City::with(['state', 'districts.properties.pictures'])->paginate($request->get('per_page', 1));
 
         return response()->json(CityResource::collection($cities));
     }
@@ -30,10 +30,10 @@ class CityController extends Controller
     public function store(Request $request)
     {
         $city = City::create($request->all());
-        $city->load(['state', 'districts']);
+        $city->load(['state', 'districts.properties.pictures']);
 
         return response()->json(
-            $city,
+            new CityResource($city),
             Response::HTTP_CREATED
         );
     }
@@ -46,9 +46,9 @@ class CityController extends Controller
      */
     public function show(City $city)
     {
-        $city->load(['state', 'districts']);
+        $city->load(['state', 'districts.properties.pictures']);
 
-        return response()->json($city);
+        return response()->json(new CityResource($city));
     }
 
     /**
@@ -61,9 +61,9 @@ class CityController extends Controller
     public function update(Request $request, City $city)
     {
         $city->update($request->all());
-        $city->load(['state', 'districts']);
+        $city->load(['state', 'districts.properties.pictures']);
 
-        return response()->json($city);
+        return response()->json(new CityResource($city));
     }
 
     /**

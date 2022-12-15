@@ -17,7 +17,8 @@ class CityResource extends JsonResource
         $data = array_merge(
             parent::toArray($request),
             [
-                'state' => new CityResource($this->whenLoaded('state')),
+                'state' => new StateResource($this->whenLoaded('state')),
+                'districts' => DistrictResource::collection($this->whenLoaded('districts')),
             ]
         );
 

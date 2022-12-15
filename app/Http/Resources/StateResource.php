@@ -14,7 +14,12 @@ class StateResource extends JsonResource
      */
     public function toArray($request)
     {
-        $data = parent::toArray($request);
+        $data = array_merge(
+            parent::toArray($request),
+            [
+                'cities' => CityResource::collection($this->whenLoaded('cities')),
+            ]
+        );
 
         unset(
             $data['created_at'],

@@ -14,9 +14,9 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $states = State::with('cities')->get();
+        $states = State::with('cities.districts.properties.pictures')->paginate($request->get('per_page', 1));
 
         return response()->json(StateResource::collection($states));
     }
@@ -30,10 +30,10 @@ class StateController extends Controller
     public function store(Request $request)
     {
         $state = State::create($request->all());
-        $state->load('cities');
+        $state->load('cities.districts.properties.pictures');
 
         return response()->json(
-            $state,
+            new StateResource($state),
             Response::HTTP_CREATED);
     }
 
@@ -45,9 +45,9 @@ class StateController extends Controller
      */
     public function show(State $state)
     {
-        $state->load('cities');
+        $state->load('cities.districts.properties.pictures');
 
-        return response()->json($state);
+        return response()->json(new StateResource($state));
     }
 
     /**
@@ -60,9 +60,11 @@ class StateController extends Controller
     public function update(Request $request, State $state)
     {
         $state->update($request->all());
-        $state->load('cities');
+        $state->load('cities.districts.properties.pictures');
 
-        return response()->json($state);
+        return response()->json(
+            new StateResource($state)
+        );
     }
 
     /**

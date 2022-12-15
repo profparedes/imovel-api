@@ -32,13 +32,12 @@ class PropertyController extends Controller
         $data = $request->all();
 
         $property = Property::create($data);
-
         $property->pictures()->sync($data['pictures']);
 
-        $property->load(['district', 'pictures']);
+        $property->load(['district.city.state', 'pictures']);
 
         return response()->json(
-            $property,
+            new PropertyResource($property),
             Response::HTTP_CREATED
         );
     }
@@ -51,9 +50,9 @@ class PropertyController extends Controller
      */
     public function show(Property $property)
     {
-        $property->load(['district', 'pictures']);
+        $property->load(['district.city.state', 'pictures']);
 
-        return response()->json($property);
+        return response()->json(new PropertyResource($property));
     }
 
     /**
@@ -70,9 +69,11 @@ class PropertyController extends Controller
         $property->update($data);
         $property->pictures()->sync($data['pictures']);
 
-        $property->load(['district', 'pictures']);
+        $property->load(['district.city.state', 'pictures']);
 
-        return response()->json($property);
+        return response()->json(
+            new PropertyResource($property)
+        );
     }
 
     /**
