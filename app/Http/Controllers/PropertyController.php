@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PropertyRequest;
 use App\Http\Resources\PropertyResource;
 use App\Models\Property;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class PropertyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PropertyRequest $request)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $property = Property::create($data);
         //$property->pictures()->sync($data['pictures']);
@@ -62,9 +63,9 @@ class PropertyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Property $property)
+    public function update(PropertyRequest $request, Property $property)
     {
-        $data = $request->all();
+        $data = $request->validated();
 
         $property->update($data);
         //$property->pictures()->sync($data['pictures']);

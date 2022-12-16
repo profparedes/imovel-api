@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StateRequest;
 use App\Http\Resources\StateResource;
 use App\Models\State;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class StateController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StateRequest $request)
     {
         $state = State::create($request->all());
         $state->load('cities.districts.properties.pictures');
@@ -57,7 +58,7 @@ class StateController extends Controller
      * @param  \App\Models\State  $state
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, State $state)
+    public function update(StateRequest $request, State $state)
     {
         $state->update($request->all());
         $state->load('cities.districts.properties.pictures');

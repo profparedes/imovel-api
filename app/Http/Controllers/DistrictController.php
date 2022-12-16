@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DistrictRequest;
 use App\Http\Resources\DistrictResource;
 use App\Models\District;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class DistrictController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DistrictRequest $request)
     {
-        $district = District::create($request->all());
+        $district = District::create($request->validated());
         $district->load(['city', 'properties.pictures']);
 
         return response()->json(
@@ -58,9 +59,9 @@ class DistrictController extends Controller
      * @param  \App\Models\District  $district
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, District $district)
+    public function update(DistrictRequest $request, District $district)
     {
-        $district->update($request->all());
+        $district->update($request->validated());
         $district->load(['city', 'properties.pictures']);
 
         return response()->json(new DistrictResource($district));
