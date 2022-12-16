@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CityRequest;
 use App\Http\Resources\CityResource;
 use App\Models\City;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class CityController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CityRequest $request)
     {
-        $city = City::create($request->all());
+        $city = City::create($request->validated());
         $city->load(['state', 'districts.properties.pictures']);
 
         return response()->json(
@@ -58,9 +59,9 @@ class CityController extends Controller
      * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, City $city)
+    public function update(CityRequest $request, City $city)
     {
-        $city->update($request->all());
+        $city->update($request->validated());
         $city->load(['state', 'districts.properties.pictures']);
 
         return response()->json(new CityResource($city));
