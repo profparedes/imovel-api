@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class PropertyRequest extends FormRequest
 {
@@ -21,9 +22,16 @@ class PropertyRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
+        $getRules = [
+            'order_by' => [
+            'in:id,title,type,rent_value,sale_value,total_area,useful_area,updated_at'
+            ],
+            'order_direction' => ['in:asc,desc'],
+        ];
+
+        $postRules = [
             'title' => ['required', 'string', 'min:4', 'max:128'],
             'type' => ['required', 'string', 'max:64'],
             'description' => ['nullable', 'string'],
@@ -49,5 +57,13 @@ class PropertyRequest extends FormRequest
             'has_gym' => ['boolean', 'nullable'],
             'has_pool'=> ['boolean', 'nullable']
         ];
+
+        $rules = [
+            'GET' => $getRules,
+            'POST' => $postRules,
+            'PUT' => $postRules,
+        ];
+
+        return $rules[$request->method()];
     }
 }
