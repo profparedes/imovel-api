@@ -26,7 +26,18 @@ class PropertyRequest extends FormRequest
     {
         $getRules = [
             'order_by' => [
-            'in:id,title,type,rent_value,sale_value,total_area,useful_area,updated_at'
+                'in:' . implode(
+                    ',',
+                    [
+                        'id',
+                        'title',
+                        'type',
+                        'rent_value',
+                        'sale_value',
+                        'total_area',
+                        'useful_area',
+                        'updated_at'
+                    ])
             ],
             'order_direction' => ['in:asc,desc'],
         ];
