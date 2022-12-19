@@ -15,9 +15,15 @@ class DistrictController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(DistrictRequest $request)
     {
-        $districts = District::with(['city', 'properties.pictures'])->paginate($request->get('per_page', 1));
+        $query = District::query();
+        $query->with(['city', 'properties.pictures']);
+
+        $districts = $query->orderBy(
+            $request->get('order_by', 'id'),
+            $request->get('order_direction', 'desc')
+        )->paginate($request->get('per_page', 1));
 
         return response()->json(DistrictResource::collection($districts));
     }

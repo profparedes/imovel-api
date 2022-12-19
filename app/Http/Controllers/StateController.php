@@ -15,9 +15,15 @@ class StateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(StateRequest $request)
     {
-        $states = State::with('cities.districts.properties.pictures')->paginate($request->get('per_page', 1));
+        $query = State::query();
+        $query->with('cities.districts.properties.pictures');
+
+        $states = $query->orderBy(
+            $request->get('order_by', 'id'),
+            $request->get('order_direction', 'desc')
+        )->paginate($request->get('per_page', 1));
 
         return response()->json(StateResource::collection($states));
     }

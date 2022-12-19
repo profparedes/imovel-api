@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CityRequest extends FormRequest
 {
@@ -21,11 +22,24 @@ class CityRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
+        $getRules = [
+            'order_by' => ['in:id,name'],
+            'order_direction' => ['in:asc,desc'],
+        ];
+
+        $postRules = [
             'name' => ['required', 'max:64'],
             'state_id' => ['required', 'integer', 'exists:App\Models\State,id'],
         ];
+
+        $rules = [
+            'GET' => $getRules,
+            'POST' => $postRules,
+            'PUT' => $postRules,
+        ];
+
+        return $rules[$request->method()];
     }
 }

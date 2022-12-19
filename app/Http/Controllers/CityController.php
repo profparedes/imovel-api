@@ -15,9 +15,15 @@ class CityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(CityRequest $request)
     {
-        $cities = City::with(['state', 'districts.properties.pictures'])->paginate($request->get('per_page', 1));
+        $query = City::query();
+        $query->with(['state', 'districts.properties.pictures']);
+
+        $cities = $query->orderBy(
+            $request->get('order_by', 'id'),
+            $request->get('order_direction', 'desc')
+        )->paginate($request->get('per_page', 1));
 
         return response()->json(CityResource::collection($cities));
     }
