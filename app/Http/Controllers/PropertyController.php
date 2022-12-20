@@ -21,44 +21,67 @@ class PropertyController extends Controller
         $query = Property::query();
         $query->with(['district.city.state', 'pictures']);
 
-        if ($request->get('is_rent') === '1'){
+        if ($request->is_rent === '1'){
             $query->where('is_rent', 1);
         }
 
-        if ($request->get('is_sale') === '1'){
+        if ($request->is_sale === '1'){
             $query->where('is_sale', 1);
         }
 
-        if ($request->get('is_furnished') === '1'){
+        if ($request->is_furnished === '1'){
             $query->where('is_furnished', 1);
         }
 
-        if ($request->get('is_pet_friendly') === '1'){
+        if ($request->is_pet_friendly === '1'){
             $query->where('is_pet_friendly', 1);
         }
 
-        if ($request->get('has_party_hall') === '1'){
+        if ($request->has_party_hall === '1'){
             $query->where('has_party_hall', 1);
         }
 
-        if ($request->get('has_playground') === '1'){
+        if ($request->has_playground === '1'){
             $query->where('has_playground', 1);
         }
 
-        if ($request->get('has_square') === '1'){
+        if ($request->has_square === '1'){
             $query->where('has_square', 1);
         }
 
-        if ($request->get('has_gym') === '1'){
+        if ($request->has_gym === '1'){
             $query->where('has_gym', 1);
         }
 
-        if ($request->get('has_pool') === '1'){
+        if ($request->has_pool === '1'){
             $query->where('has_pool', 1);
         }
 
         if ($request->district_id){
             $query->whereIn('district_id', $request->district_id);
+        }
+
+        if ($request->search){
+            $query->where(function ($q) use ($request){
+                $q->where('title', 'like', "%{$request->search}%")
+                  ->orWhere('type', 'like', "%{$request->search}%")
+                  ->orWhere('address', 'like', "%{$request->search}%");
+                  //->orWhere('location', 'like', "%{$request->search}%");
+            }); //a query deve ser agrupada para que as funcoes de orWhere nao cancele chamadas anteriores
+        }
+
+        if ($request->min_value){
+            $query->where(function ($q) use ($request){
+                $q->where('rent_value', '>=', $request->min_value)
+                  ->orWhere('sale_value', '>=', $request->min_value);
+            });
+        }
+
+        if ($request->max_value){
+            $query->where(function ($q) use ($request){
+                $q->where('rent_value', '<=', $request->max_value)
+                  ->orWhere('sale_value', '<=', $request->max_value);
+            });
         }
 
         $properties = $query->orderBy(
