@@ -64,12 +64,12 @@ class PropertyController extends Controller
         if ($request->city_id || $request->state_id){
             $query->whereHas('district', function ($q) use ($request){
                 if ($request->city_id) {
-                    $q->where('city_id', $request->city_id);
+                    $q->whereIn('city_id', $request->city_id);
                 }
 
                 if ($request->state_id) {
                     $q->whereHas('city', function ($city) use ($request){
-                        $city->where('state_id', $request->state_id);
+                        $city->whereIn('state_id', $request->state_id);
                     });
                 }
             });
