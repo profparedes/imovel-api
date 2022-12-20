@@ -6,13 +6,13 @@ Esta é uma API de teste que está sendo criada em Laravel, simulando o gerencia
 
 Para instalar e começar a usar a API, siga os seguintes passos:
 
-Clone o repositório para o seu computador usando o comando git clone
-Acesse o diretório do projeto com o comando cd imoveis-api
-Execute o comando composer install para instalar todas as dependências do projeto
-Copie o arquivo .env.example para .env e configure as suas configurações de banco de dados
-Execute o comando php artisan migrate para criar as tabelas do banco de dados
-Inicie o servidor com o comando php artisan serve
-Acesse a API em http://localhost:8000
+- Clone o repositório para o seu computador usando o comando git clone
+- Acesse o diretório do projeto com o comando cd imoveis-api
+- Execute o comando composer install para instalar todas as dependências do projeto
+- Copie o arquivo .env.example para .env e configure as suas configurações de banco de dados
+- Execute o comando php artisan migrate para criar as tabelas do banco de dados
+- Inicie o servidor com o comando php artisan serve
+- Acesse a API em http://localhost:8000
 
 ## Endpoints
 
