@@ -25,6 +25,8 @@ class PropertyRequest extends FormRequest
     public function rules(Request $request)
     {
         $getRules = [
+            'page' => ['integer', 'min:1'],
+            'per_page' => ['integer', 'min:1'],
             'order_by' => [
                 'in:' . implode(
                     ',',
@@ -40,6 +42,18 @@ class PropertyRequest extends FormRequest
                     ])
             ],
             'order_direction' => ['in:asc,desc'],
+            'is_rent' => ['boolean'],
+            'is_sale' => ['boolean'],
+            'is_furnished' => ['boolean'],
+            'is_pet_friendly' => ['boolean'],
+            'has_party_hall' => ['boolean'],
+            'has_playground' => ['boolean'],
+            'has_square' => ['boolean'],
+            'has_gym' => ['boolean'],
+            'has_pool' => ['boolean'],
+            'search' => ['string'],
+            'min_value' => ['integer', 'min:0'],
+            'max_value' => ['integer', 'min:0']
         ];
 
         $postRules = [
