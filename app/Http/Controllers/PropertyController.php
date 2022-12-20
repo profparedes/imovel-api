@@ -61,12 +61,25 @@ class PropertyController extends Controller
             $query->whereIn('district_id', $request->district_id);
         }
 
+        if ($request->city_id || $request->state_id){
+            $query->whereHas('district', function ($q) use ($request){
+                if ($request->city_id) {
+                    $q->whereIn('city_id', $request->city_id);
+                }
+
+                if ($request->state_id) {
+                    $q->whereHas('city', function ($city) use ($request){
+                        $city->whereIn('state_id', $request->state_id);
+                    });
+                }
+            });
+        }
+
         if ($request->search){
             $query->where(function ($q) use ($request){
                 $q->where('title', 'like', "%{$request->search}%")
                   ->orWhere('type', 'like', "%{$request->search}%")
                   ->orWhere('address', 'like', "%{$request->search}%");
-                  //->orWhere('location', 'like', "%{$request->search}%");
             }); //a query deve ser agrupada para que as funcoes de orWhere nao cancele chamadas anteriores
         }
 
