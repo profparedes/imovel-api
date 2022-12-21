@@ -20,6 +20,10 @@ class CityController extends Controller
         $query = City::query();
         $query->with(['state', 'districts.properties.pictures']);
 
+        if ($request->search){
+            $query->where('name', 'like', "%{$request->search}%");
+        }
+
         $cities = $query->orderBy(
             $request->get('order_by', 'id'),
             $request->get('order_direction', 'desc')

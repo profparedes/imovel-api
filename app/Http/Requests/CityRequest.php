@@ -29,6 +29,7 @@ class CityRequest extends FormRequest
             'per_page' => ['integer', 'min:1'],
             'order_by' => ['in:id,name'],
             'order_direction' => ['in:asc,desc'],
+            'search' => ['string']
         ];
 
         $postRules = [
