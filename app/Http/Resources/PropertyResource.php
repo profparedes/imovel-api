@@ -29,6 +29,8 @@ class PropertyResource extends JsonResource
                     'is_sale' => $this->is_sale,
                     'rent_value' => $this->rent_value,
                     'sale_value' => $this->sale_value,
+                    'is_featured_rent' => $this->is_featured_rent,
+                    'is_featured_sale' => $this->is_featured_sale,
                     'is_furnished' => $this->is_furnished,
                     'is_pet_friendly' => $this->is_pet_friendly,
                     'bathrooms' => $this->bathrooms,
