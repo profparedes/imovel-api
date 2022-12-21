@@ -29,6 +29,14 @@ class PropertyController extends Controller
             $query->where('is_sale', 1);
         }
 
+        if ($request->is_featured_rent === '1'){
+            $query->where('is_featured_rent', 1);
+        }
+
+        if ($request->is_featured_sale === '1'){
+            $query->where('is_featured_sale', 1);
+        }
+
         if ($request->is_furnished === '1'){
             $query->where('is_furnished', 1);
         }
@@ -64,12 +72,12 @@ class PropertyController extends Controller
         if ($request->city_id || $request->state_id){
             $query->whereHas('district', function ($q) use ($request){
                 if ($request->city_id) {
-                    $q->whereIn('city_id', $request->city_id);
+                    $q->where('city_id', $request->city_id);
                 }
 
                 if ($request->state_id) {
                     $q->whereHas('city', function ($city) use ($request){
-                        $city->whereIn('state_id', $request->state_id);
+                        $city->where('state_id', $request->state_id);
                     });
                 }
             });
