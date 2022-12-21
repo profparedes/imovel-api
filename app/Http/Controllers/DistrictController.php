@@ -20,6 +20,10 @@ class DistrictController extends Controller
         $query = District::query();
         $query->with(['city', 'properties.pictures']);
 
+        if ($request->search){
+            $query->where('name', 'like', "%{$request->search}%");
+        }
+
         $districts = $query->orderBy(
             $request->get('order_by', 'id'),
             $request->get('order_direction', 'desc')
