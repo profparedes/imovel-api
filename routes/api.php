@@ -23,6 +23,7 @@ Route::delete('/properties/{property}/force-delete', [PropertyController::class,
 
 Route::apiResource('/states', StateController::class);
 Route::apiResource('/cities', CityController::class);
+Route::get('/cities/{city}/districts', [DistrictController::class, 'listByCity']);
 Route::apiResource('/districts', DistrictController::class);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

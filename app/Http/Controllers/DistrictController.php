@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DistrictRequest;
 use App\Http\Resources\DistrictResource;
+use App\Models\City;
 use App\Models\District;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,6 +29,13 @@ class DistrictController extends Controller
             $request->get('order_by', 'id'),
             $request->get('order_direction', 'desc')
         )->paginate($request->get('per_page', 1));
+
+        return response()->json(DistrictResource::collection($districts));
+    }
+
+    public function listByCity(Request $request, City $city)
+    {
+        $districts = District::where('city_id', $city->id)->orderBy('name')->get();
 
         return response()->json(DistrictResource::collection($districts));
     }
