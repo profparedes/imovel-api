@@ -18,7 +18,7 @@ class CityController extends Controller
     public function index(CityRequest $request)
     {
         $query = City::query();
-        $query->with(['state', 'districts.properties.pictures']);
+        $query->with(['state', 'districts']);
 
         if ($request->search){
             $query->where('name', 'like', "%{$request->search}%");
